@@ -1,0 +1,282 @@
+[
+  {
+    "seat_no": "303045",
+    "name": "YADAV SAURAV RAVINDRA SHUBHAVATI",
+    "prn": "2020016401013454",
+    "coll_code": "715",
+    "coll_name": "THAKUR INST.OF MGMT.",
+    "status": "P",
+    "totals": {
+      "total_marks": "850",
+      "total_marks_obtain": "661",
+      "total_credits": "21",
+      "total_cgp": "188",
+      "gpi": "8.95"
+    },
+    "courses": [
+      {
+        "course_name": "MATHEMATICAL FOUNDATION",
+        "course_code": "MATH101",
+        "section_1": {
+          "theory_marks": {
+            "total_marks": "80",
+            "passing_marks": "36",
+            "marks_obtain": "60",
+            "grade": "A"
+          },
+          "internal_marks": {
+            "total_marks": "20",
+            "passing_marks": "9",
+            "marks_obtain": "18",
+            "grade": "O"
+          },
+          "total_marks_obtain": "78",
+          "C": "3",
+          "G": "A",
+          "GP": "9",
+          "C*GP": "27"
+        },
+        "section_2": {
+          "assignment_marks": {
+            "total_marks": "25",
+            "passing_marks": "11",
+            "marks_obtain": "24"
+          },
+          "practical_marks": {
+            "total_marks": "50",
+            "passing_marks": "23",
+            "marks_obtain": "32",
+            "grade": "C"
+          },
+          "total_marks_obtain": "56",
+          "C": "1",
+          "G": "A",
+          "GP": "9",
+          "C*GP": "9"
+        }
+      },
+      {
+        "course_name": "DATABASE SYSTEMS",
+        "course_code": "DBMS102",
+        "section_1": {
+          "theory_marks": {
+            "total_marks": "80",
+            "passing_marks": "36",
+            "marks_obtain": "60",
+            "grade": "A"
+          },
+          "internal_marks": {
+            "total_marks": "20",
+            "passing_marks": "9",
+            "marks_obtain": "17",
+            "grade": "O"
+          },
+          "total_marks_obtain": "77",
+          "C": "3",
+          "G": "A",
+          "GP": "9",
+          "C*GP": "27"
+        },
+        "section_2": {
+          "assignment_marks": {
+            "total_marks": "25",
+            "passing_marks": "11",
+            "marks_obtain": "24"
+          },
+          "practical_marks": {
+            "total_marks": "50",
+            "passing_marks": "23",
+            "marks_obtain": "35",
+            "grade": "B"
+          },
+          "total_marks_obtain": "56",
+          "C": "1",
+          "G": "A",
+          "GP": "9",
+          "C*GP": "9"
+        }
+      },
+      {
+        "course_name": "COMPUTER NETWORKS",
+        "course_code": "CN101",
+        "section_1": {
+          "theory_marks": {
+            "total_marks": "80",
+            "passing_marks": "36",
+            "marks_obtain": "52",
+            "grade": "C"
+          },
+          "internal_marks": {
+            "total_marks": "20",
+            "passing_marks": "9",
+            "marks_obtain": "15",
+            "grade": "C"
+          },
+          "total_marks_obtain": "67",
+          "C": "3",
+          "G": "C",
+          "GP": "7",
+          "C*GP": "21"
+        },
+        "section_2": {
+          "assignment_marks": {
+            "total_marks": "25",
+            "passing_marks": "11",
+            "marks_obtain": "48"
+          },
+          "practical_marks": {
+            "total_marks": "50",
+            "passing_marks": "23",
+            "marks_obtain": "56",
+            "grade": "B"
+          },
+          "total_marks_obtain": "90",
+          "C": "3",
+          "G": "O",
+          "GP": "10",
+          "C*GP": "30"
+        }
+      }
+    ]
+  },
+  {
+    "seat_no": "9303046",
+    "name": "YADAV SUDHA RAMASHRAY LAXMI",
+    "prn": "2020016401772456",
+    "coll_code": "715",
+    "coll_name": "THAKUR INST.OF MGMT.",
+    "status": "P",
+    "totals": {
+      "total_marks": "850",
+      "total_marks_obtain": "650",
+      "total_credits": "21",
+      "total_cgp": "180",
+      "gpi": "8.57"
+    },
+    "courses": [
+      {
+        "course_name": "MATHEMATICAL FOUNDATION",
+        "course_code": "MATH101",
+        "section_1": {
+          "theory_marks": {
+            "total_marks": "80",
+            "passing_marks": "36",
+            "marks_obtain": "62",
+            "grade": "A"
+          },
+          "internal_marks": {
+            "total_marks": "20",
+            "passing_marks": "9",
+            "marks_obtain": "18",
+            "grade": "O"
+          },
+          "total_marks_obtain": "80",
+          "C": "3",
+          "G": "O",
+          "GP": "10",
+          "C*GP": "30"
+        },
+        "section_2": {
+          "assignment_marks": {
+            "total_marks": "25",
+            "passing_marks": "11",
+            "marks_obtain": "24"
+          },
+          "practical_marks": {
+            "total_marks": "50",
+            "passing_marks": "23",
+            "marks_obtain": "43",
+            "grade": "O"
+          },
+          "total_marks_obtain": "67",
+          "C": "3",
+          "G": "O",
+          "GP": "10",
+          "C*GP": "30"
+        }
+      },
+      {
+        "course_name": "DATABASE SYSTEMS",
+        "course_code": "DBMS102",
+        "section_1": {
+          "theory_marks": {
+            "total_marks": "80",
+            "passing_marks": "36",
+            "marks_obtain": "41",
+            "grade": "E"
+          },
+          "internal_marks": {
+            "total_marks": "20",
+            "passing_marks": "9",
+            "marks_obtain": "17",
+            "grade": "O"
+          },
+          "total_marks_obtain": "58",
+          "C": "3",
+          "G": "D",
+          "GP": "6",
+          "C*GP": "18"
+        },
+        "section_2": {
+          "assignment_marks": {
+            "total_marks": "25",
+            "passing_marks": "11",
+            "marks_obtain": "15"
+          },
+          "practical_marks": {
+            "total_marks": "50",
+            "passing_marks": "23",
+            "marks_obtain": "35",
+            "grade": "B"
+          },
+          "total_marks_obtain": "50",
+          "C": "1",
+          "G": "C",
+          "GP": "8",
+          "C*GP": "7"
+        }
+      },
+      {
+        "course_name": "COMPUTER NETWORKS",
+        "course_code": "CN101",
+        "section_1": {
+          "theory_marks": {
+            "total_marks": "80",
+            "passing_marks": "36",
+            "marks_obtain": "48",
+            "grade": "C"
+          },
+          "internal_marks": {
+            "total_marks": "20",
+            "passing_marks": "9",
+            "marks_obtain": "17",
+            "grade": "C"
+          },
+          "total_marks_obtain": "65",
+          "C": "3",
+          "G": "B",
+          "GP": "8",
+          "C*GP": "24"
+        },
+        "section_2": {
+          "assignment_marks": {
+            "total_marks": "25",
+            "passing_marks": "11",
+            "marks_obtain": "41"
+          },
+          "practical_marks": {
+            "total_marks": "50",
+            "passing_marks": "23",
+            "marks_obtain": "48",
+            "grade": "O"
+          },
+          "total_marks_obtain": "89",
+          "C": "2",
+          "G": "O",
+          "GP": "10",
+          "C*GP": "20"
+        }
+      }
+    ]
+  }
+]

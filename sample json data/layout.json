@@ -1,0 +1,125 @@
+[
+	{
+		"seat_no": "",
+		"name": "",
+		"prn": "",
+		"coll_code": "",
+		"coll_name": "",
+		"status": "",
+		"totals": {
+			"total_marks": "",
+			"total_marks_obtain": "",
+			"total_credits": "",
+			"total_cgp": "",
+			"gpi": ""
+		},
+		"courses": [
+			{
+				"course_name": "// subjects with ' / Lab' + Electives",
+				"course_code": "",
+				
+				"section_1": {
+					"theory_marks": {
+						"total_marks": "",
+						"passing_marks": "",
+						"marks_obtain": ""
+					},
+					"internal_marks": {
+						"total_marks": "",
+						"passing_marks": "",
+						"marks_obtain": ""
+					},
+					"total_marks": "",
+					"C": "",
+					"G": "",
+					"GP": "",
+					"C*GP": ""
+				},
+				"section_2": {
+					"assignment_marks": {
+						"total_marks": "",
+						"passing_marks": "",
+						"marks_obtain": ""
+					},
+					"practical_marks": {
+						"total_marks": "",
+						"passing_marks": "",
+						"marks_obtain": ""
+					},
+					"total_marks": "",
+					"C": "",
+					"G": "",
+					"GP": "",
+					"C*GP": ""
+				}
+			},
+			{
+				"course_name": "// subject with no ' / Lab'",
+				"course_code": "",
+				"section_1": {
+					"theory_marks": {
+						"total_marks": "",
+						"passing_marks": "",
+						"marks_obtain": ""
+					},
+					"internal_marks": {
+						"total_marks": "",
+						"passing_marks": "",
+						"marks_obtain": ""
+					},
+					"total_marks": "",
+					"C": "",
+					"G": "",
+					"GP": "",
+					"C*GP": ""
+				},
+				"section_2": {
+					"assignment_marks": {
+						"total_marks": "",
+						"passing_marks": "",
+						"marks_obtain": ""
+					},
+					"total_marks": "",
+					"C": "",
+					"G": "",
+					"GP": "",
+					"C*GP": ""
+				}
+			},
+			{
+				"course_name": "// Lab Subjects ",
+				"course_code": "",
+				"section_1": {
+					"assignment_marks": {
+						"total_marks": "",
+						"passing_marks": "",
+						"marks_obtain": ""
+					},
+					"practical_marks": {
+						"total_marks": "",
+						"passing_marks": "",
+						"marks_obtain": ""
+					},
+					"total_marks": "",
+					"C": "",
+					"G": "",
+					"GP": "",
+					"C*GP": ""
+				}
+			},
+			{
+				"course_name": "// Mini Project ",
+				"course_code": "",
+				"section_1": {
+					"total_marks": "",
+					"passing_marks": "",
+					"marks_obtain": "",
+					"C": "",
+					"G": "",
+					"GP": "",
+					"C*GP": ""
+				}
+			}
+		]
+	}
+]

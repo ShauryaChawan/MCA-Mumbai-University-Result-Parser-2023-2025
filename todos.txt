@@ -1,0 +1,17 @@
+1. Student status = Passed
+2. Student status = Failed
+3. Student status = Absent
+4. Student with KT
+5. data of 2 Students with status = pass
+6. data of 2 Students with status = fail
+7. data of 2 Students with status = absent
+8. data of 3 Students with status = P, F, & A
+9. data of 1 page
+10. data of 2 pages
+11. data of 3 pages
+12. data of 4 pages
+13. data of 5 pages
+
+
+<------ Course  V ----<CR-2>-->
+48 (O )25 (E ) 73 2  B   8 16  |
