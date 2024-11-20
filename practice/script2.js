@@ -14,7 +14,10 @@ function parseCompleteData(rawData) {
 
 function parseBasicStudentDetails(rawData) {
   // Trim any leading or trailing whitespace from raw data
+  
   rawData = rawData.trim();
+
+
 
   // More flexible regex
   const regex =
@@ -44,6 +47,7 @@ function parseBasicStudentDetails(rawData) {
     },
   };
 
+  console.log(studentData);
   return studentData;
 }
 
@@ -208,7 +212,7 @@ const rawData = `9303351 /BORHADE SIDDHI SANJAY SUVARNA                         
 
 try {
   const completeData = parseCompleteData(rawData);
-  console.log(JSON.stringify(completeData, null, 2));
+  // console.log(JSON.stringify(completeData, null, 2));
 } catch (error) {
   console.error(error.message);
 }
