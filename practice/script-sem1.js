@@ -19,13 +19,14 @@ pdf(dataBuffer)
   });
 
 let extractedCoursesMaxLength = {
-  MCA11: 58,
-  MCA12: 62,
-  MCA13: 58,
-  MCA14: 62,
-  MCAL11: 31,
-  MCAL14: 26,
-  MCAP11: 34,
+  // <subject code>: [<max length>, <delimiter>]
+  MCA11: [58, "|"],
+  MCA12: [62, "\n"],
+  MCA13: [58, "|"],
+  MCA14: [62, "\n"],
+  MCAL11: [31, "|"],
+  MCAL14: [26, "|"],
+  MCAP11: [34, "\n"],
 };
 
 let students_data_sem_1_layout = [
@@ -274,7 +275,7 @@ function processAllStudentsData(extractedData) {
   // console.log(data);
 
   if (data.length != 0) {
-    console.log("Array length: " + data.length);
+    // console.log("Array length: " + data.length);
 
     for (let i of data) {
       // sending data of 1 student at a time
@@ -285,7 +286,7 @@ function processAllStudentsData(extractedData) {
   } else {
     console.log("Array is empty !!");
   }
-  displayExtractedJSONData();
+  // displayExtractedJSONData();
 }
 
 const displayExtractedJSONData = () => {
@@ -318,11 +319,25 @@ function parseCompleteData(rawData) {
 
   rawData = removeIndicesUsingSplice(rawData, indicesToRemove);
 
+  // console.log(rawData.length); = 5
   // console.log(rawData);
+
+  // [
+  //   "  9303351 /BORHADE SIDDHI SANJAY SUVARNA                         2020016400304377    COLL 456:SIES NERUL NAVI MUMBAI ",
+  //   " 44 (D )17 (O ) 61 3  C   7 21|20               1  O  10 10|64 (O )19 (O ) 83 3  O  10 30|23 (O) 42 (O) 65   1  O  10 10       P ",
+  //   " 66 (O )17 (O ) 83 3  O  10 30|22 (O)32 (C)  54 1  B   8  8|61 (A )16 (O ) 77 3  A   9 27|16                 1  C   7  7 ",
+  //   " 48 (O )25 (E ) 73 2  B   8 16|38 (A)39 (A)  77 2  A   9 18 |33 (C)        33 1  C   7  7 ",
+  //   "                                                                      Total Marks obtained 642/850           21 184  8.76 ",
+  // ];
 
   let studentInfo = extractStudentDetails(rawData[0]);
   let studentStatus = extractStudentStatus(rawData[1]);
   let studentTotal = extractStudentTotals(rawData[rawData.length - 1]);
+  let courses = extractStudentsMarksForEachCourse([
+    rawData[1],
+    rawData[2],
+    rawData[3],
+  ]);
   // console.log(studentInfo);
   // console.log(studentStatus);
   // console.log(studentTotal);
@@ -425,4 +440,89 @@ function extractStudentTotals(rawLine) {
     // If the pattern doesn't match, return an empty object or handle the error
     return {};
   }
+}
+
+function extractStudentsMarksForEachCourse(rawRows) {
+  // console.log(rawRows);
+
+  let row1 = rawRows[0].trim();
+  let row2 = rawRows[1].trim();
+  let row3 = rawRows[2].trim();
+
+  const processRow1_result = processRow1(row1);
+  console.log(processRow1_result);
+  const processRow2_result = processRow2(row2);
+  console.log(processRow2_result);
+  const processRow3_result = processRow3(row3);
+  console.log(processRow3_result);
+}
+
+function processRow1(rawInput) {
+  // Remove leading/trailing whitespace and normalize spaces
+  rawInput = rawInput.trim().replace(/\s{2,}/g, " ");
+
+  // Regex to match entries with formats like '44 (D )', '31F(F )', or '--'
+  const regex = /(\w+(?:\(\w\s?\))?)|(--)|\|/g;
+
+  // Match all valid parts and clean up parentheses
+  const matches = rawInput.match(regex).map((match) => {
+    if (match.includes("(")) {
+      // Remove parentheses and spaces inside them
+      return [match.split("(")[0], match.match(/\((\w+)/)[1]];
+    } else {
+      return match === "--" || match === "|" ? match : match.trim();
+    }
+  });
+
+  // Flatten the result and return
+  return matches.flat();
+}
+
+function processRow2(rawInput) {
+  // Regular expression to match elements based on the pattern
+  const regex = /(\d+[A-Z]|\d+|\w|\-\-|\|)/g;
+
+  // Regular expression to handle parenthesis (e.g., (F), (O))
+  const parenthesesRegex = /\(([^)]+)\)/g;
+
+  // Replace all parenthesis with their inner text
+  const sanitizedInput = rawInput.replace(
+    parenthesesRegex,
+    (_, group) => ` ${group.trim()} `
+  );
+
+  // Match all elements using the regex
+  const result = sanitizedInput.match(regex);
+
+  // removing "RCC" or "ABS"
+  if(result.length === 38){
+    result.pop();
+    result.pop();
+    result.pop();
+  }
+  // Return the array or an empty array if no matches are found
+  return result || [];
+}
+
+function processRow3(rawInput) {
+  // Regular expression to match patterns in the input
+  const regex = /(\d+[A-Z]*|\w)\s*\(([A-Z])\)|(\d+[A-Z]*|[A-Z]+)|(--)|\|/g;
+
+  const result = [];
+  let match;
+
+  // Iterate through the matches using the regex
+  while ((match = regex.exec(rawInput)) !== null) {
+    if (match[1] && match[2]) { // Match patterns like "48 (O)" or "47E(O)"
+      result.push(match[1], match[2]);
+    } else if (match[3]) { // Match standalone numbers or letters
+      result.push(match[3]);
+    } else if (match[4]) { // Match "--"
+      result.push(match[4]);
+    } else if (match[0] === "|") { // Match "|"
+      result.push("|");
+    }
+  }
+
+  return result;
 }

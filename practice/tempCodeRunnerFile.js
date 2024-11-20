@@ -1,1 +1,3 @@
-console.log(result);
+0]);
+  console.log(rawRows[1]);
+  console.log(rawRows[2]);
