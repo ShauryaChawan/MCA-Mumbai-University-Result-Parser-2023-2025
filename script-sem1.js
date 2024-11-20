@@ -1,12 +1,13 @@
 const fs = require("fs");
 const pdfParse = require("pdf-parse");
+const xlsx = require("xlsx");
 
 // Test 1: Failed ❌
 // const pdfPath = "D:\\Projects\\PDF to Excel\\pdfs\sem-1\\passed-students\\1T00161 - Sem 1-179.pdf";
 // Test 2: Passed ✅
 // const pdfPath = "D:\\Projects\\PDF to Excel\\pdfs\\sem-1\\passed-students\\1T00161 - Sem 1-516.pdf";
 // Test 3: Passed ✅
-const pdfPath = "D:\\Projects\\PDF to Excel\\pdfs\\sem-1\\passed-students\\1T00161 - Sem 1-518.pdf";
+// const pdfPath = "D:\\Projects\\PDF to Excel\\pdfs\\sem-1\\passed-students\\1T00161 - Sem 1-518.pdf";
 // Test 4: Passed ✅
 // const pdfPath = "D:\\Projects\\PDF to Excel\\pdfs\\sem-1\\1T00161 - Sem 1-400.pdf";
 // Test 5: Passed ✅
@@ -20,7 +21,7 @@ const pdfPath = "D:\\Projects\\PDF to Excel\\pdfs\\sem-1\\passed-students\\1T001
 // Test 9: Passed ✅
 // const pdfPath = "D:\\Projects\\PDF to Excel\\pdfs\\sem-1\\1T00161 - Sem 1-515-520.pdf";
 // Test 10: Passed ✅
-// const pdfPath = "D:\\Projects\\PDF to Excel\\pdfs\\sem-1\\1T00161 - Sem 1.pdf";
+const pdfPath = "D:\\Projects\\PDF to Excel\\pdfs\\sem-1\\1T00161 - Sem 1.pdf";
 
 // Testing sem 1 kt pdf
 // Test 11: Passed ✅
@@ -34,6 +35,172 @@ const pdfPath = "D:\\Projects\\PDF to Excel\\pdfs\\sem-1\\passed-students\\1T001
 
 // Code - Shaurya
 
+let extractedJSONData = [];
+
+const sem_1_headers = [
+  "Seat No.",
+  "Name",
+  "PRN",
+  "Coll. Code",
+  "Coll. Name",
+  "Status",
+  "Total Marks",
+  "Total Marks Objtain",
+  "Total Credits",
+  "Total CGP",
+  "Total GPI",
+  // Course 1: MFCS1
+  "C1 Name",
+  "C1 Code",
+  "C1 S1 The. Total Marks",
+  "C1 S1 The. Passing Marks",
+  "C1 S1 The. Marks Obtain",
+  "C1 S1 The. Grade",
+  "C1 S1 Int. Total Marks",
+  "C1 S1 Int. Passing Marks",
+  "C1 S1 Int. Marks Obtain",
+  "C1 S1 Int. Grade",
+  "C1 S1 Total Marks Obtain",
+  "C1 S1 Credits(C)",
+  "C1 S1 Grade (G)",
+  "C1 S1 Grade Point (GP)",
+  "C1 S1 CGP",
+  "C1 S2 Assi. Total Marks",
+  "C1 S2 Assi. Passing Marks",
+  "C1 S2 Assi. Marks Obtain",
+  "C1 S2 C",
+  "C1 S2 G",
+  "C1 S2 GP",
+  "C1 S2 CGP",
+  // Course 2: ADVANCED JAVA / LAB
+  "C2 Name",
+  "C2 Code",
+  "C2 S1 The. Total Marks",
+  "C2 S1 The. Passing Marks",
+  "C2 S1 The. Marks Obtain",
+  "C2 S1 The. Grade",
+  "C2 S1 Int. Total Marks",
+  "C2 S1 Int. Passing Marks",
+  "C2 S1 Int. Marks Obtain",
+  "C2 S1 Int. Grade",
+  "C2 S1 Total Marks Obtain",
+  "C2 S1 Credits(C)",
+  "C2 S1 Grade (G)",
+  "C2 S1 Grade Point (GP)",
+  "C2 S1 CGP",
+  "C2 S2 Assi. Total Marks",
+  "C2 S2 Assi. Passing Marks",
+  "C2 S2 Assi. Marks Obtain",
+  "C2 S2 Assi. Grade",
+  "C2 S2 Prac. Total Marks",
+  "C2 S2 Prac. Passing Marks",
+  "C2 S2 Prac. Marks Obtain",
+  "C2 S2 Prac. Grade",
+  "C2 S2 Total Marks Obtain",
+  "C2 S2 Credits(C)",
+  "C2 S2 Grade (G)",
+  "C2 S2 Grade Point (GP)",
+  "C2 S2 CGP",
+  // Course 3: ADVANCED DATABASE MANAGEMENT SYSTEM / LAB
+  "C3 Name",
+  "C3 Code",
+  "C3 S1 The. Total Marks",
+  "C3 S1 The. Passing Marks",
+  "C3 S1 The. Marks Obtain",
+  "C3 S1 The. Grade",
+  "C3 S1 Int. Total Marks",
+  "C3 S1 Int. Passing Marks",
+  "C3 S1 Int. Marks Obtain",
+  "C3 S1 Int. Grade",
+  "C3 S1 Total Marks Obtain",
+  "C3 S1 Credits(C)",
+  "C3 S1 Grade (G)",
+  "C3 S1 Grade Point (GP)",
+  "C3 S1 CGP",
+  "C3 S2 Assi. Total Marks",
+  "C3 S2 Assi. Passing Marks",
+  "C3 S2 Assi. Marks Obtain",
+  "C3 S2 Assi. Grade",
+  "C3 S2 Prac. Total Marks",
+  "C3 S2 Prac. Passing Marks",
+  "C3 S2 Prac. Marks Obtain",
+  "C3 S2 Prac. Grade",
+  "C3 S2 Total Marks Obtain",
+  "C3 S2 Credits(C)",
+  "C3 S2 Grade (G)",
+  "C3 S2 Grade Point (GP)",
+  "C3 S2 CGP",
+  // Course 4: SOFTWARE PROJECT MANAGEMENT
+  "C4 Name",
+  "C4 Code",
+  "C4 S1 The. Total Marks",
+  "C4 S1 The. Passing Marks",
+  "C4 S1 The. Marks Obtain",
+  "C4 S1 The. Grade",
+  "C4 S1 Int. Total Marks",
+  "C4 S1 Int. Passing Marks",
+  "C4 S1 Int. Marks Obtain",
+  "C4 S1 Int. Grade",
+  "C4 S1 Total Marks Obtain",
+  "C4 S1 Credits(C)",
+  "C4 S1 Grade (G)",
+  "C4 S1 Grade Point (GP)",
+  "C4 S1 CGP",
+  "C4 S2 Assi. Total Marks",
+  "C4 S2 Assi. Passing Marks",
+  "C4 S2 Assi. Marks Obtain",
+  "C4 S2 C",
+  "C4 S2 G",
+  "C4 S2 GP",
+  "C4 S2 CGP",
+  // Course 5: DATA STRUCTURE LAB USING C AND/ C++
+  "C5 Name",
+  "C5 Code",
+  "C5 S1 Term Work (TW) Total Marks",
+  "C5 S1 T.W. Passing Marks",
+  "C5 S1 T.W. Marks Obtain",
+  "C5 S1 T.W. Grade",
+  "C5 S1 Int. Total Marks",
+  "C5 S1 Int. Passing Marks",
+  "C5 S1 Int. Marks Obtain",
+  "C5 S1 Int. Grade",
+  "C5 S1 Total Marks Obtain",
+  "C5 S1 Credits(C)",
+  "C5 S1 Grade (G)",
+  "C5 S1 Grade Point (GP)",
+  "C5 S1 CGP",
+  // Course 6: WEB TECHNOLOGIES
+  "C6 Name",
+  "C6 Code",
+  "C6 S1 Term Work (TW) Total Marks",
+  "C6 S1 T.W. Passing Marks",
+  "C6 S1 T.W. Marks Obtain",
+  "C6 S1 T.W. Grade",
+  "C6 S1 Int. Total Marks",
+  "C6 S1 Int. Passing Marks",
+  "C6 S1 Int. Marks Obtain",
+  "C6 S1 Int. Grade",
+  "C6 S1 Total Marks Obtain",
+  "C6 S1 Credits(C)",
+  "C6 S1 Grade (G)",
+  "C6 S1 Grade Point (GP)",
+  "C6 S1 CGP",
+  // <!-- Course 7: MINI PROJECT-1A -->
+  "C7 Name",
+  "C7 Code",
+  "C7 Total Marks",
+  "C7 Passing Marks",
+  "C7 Marks Obtain",
+  "C7 Grade",
+  "C7 Total Marks Obtain",
+  "C7 Credits(C)",
+  "C7 Grade (G)",
+  "C7 Grade Point (GP)",
+  "C7 CGP",
+];
+
+let Sem1_2DArr = [sem_1_headers];
+
 const readPDFText = async (pdfPath) => {
   // Read the PDF file into a buffer
   const pdfBuffer = fs.readFileSync(pdfPath);
@@ -46,7 +213,7 @@ const readPDFText = async (pdfPath) => {
     const fullText = data.text;
 
     // Split the text into an array of pages based on page breaks
-    const pages = fullText.split("\n\n"); 
+    const pages = fullText.split("\n\n");
 
     // Loop through each page
     for (let index = 1; index < pages.length; index++) {
@@ -59,17 +226,16 @@ const readPDFText = async (pdfPath) => {
       // console.log(extractedData);
       processAllStudentsData(extractedData);
     }
-    displayExtractedJSONData();
+
+    // displayExtractedJSONData();
+
+    flatAllStudents(extractedJSONData);
+    // displayArr();
+    convert2DArrToExcel(Sem1_2DArr);
   } catch (error) {
     console.error("Error reading PDF:", error);
   }
 };
-
-// Run the function to read and extract text from the PDF
-readPDFText(pdfPath);
-
-
-let extractedJSONData = [];
 
 function processAllStudentsData(extractedData) {
   const data = extractedData;
@@ -88,14 +254,14 @@ function processAllStudentsData(extractedData) {
       // console.log(result);
       extractedJSONData.push(result);
     }
-  } 
+  }
   // else {
   //   console.log("Array is empty !!");
   // }
 }
 
 const displayExtractedJSONData = () => {
-  console.log(extractedJSONData.length);
+  // console.log(extractedJSONData.length);
   // console.log(extractedJSONData);
 };
 
@@ -606,3 +772,214 @@ function mappedArrayToJSONRow3(data) {
     },
   ];
 }
+
+function flatAllStudents(jsonObject) {
+  // console.log(jsonObject);
+  for (let i in jsonObject) {
+    // console.log(jsonObject[i]);
+    const result = flatStudent(jsonObject[i]);
+    // console.log("result:" + result);
+    Sem1_2DArr.push(result);
+  }
+}
+
+function flatStudent(student) {
+  let i = 0;
+  let tempArr = [];
+  tempArr[i++] = student.seat_no;
+  tempArr[i++] = student.name;
+  tempArr[i++] = student.prn;
+  tempArr[i++] = student.coll_code;
+  tempArr[i++] = student.coll_name;
+  tempArr[i++] = student.status;
+  tempArr[i++] = student.totals.total_marks;
+  tempArr[i++] = student.totals.total_marks_obtain;
+  tempArr[i++] = student.totals.total_credits;
+  tempArr[i++] = student.totals.total_cgp;
+  tempArr[i++] = student.totals.gpi;
+  {
+    /* Course 1 */
+  }
+  tempArr[i++] = student.courses[0].course_name;
+  tempArr[i++] = student.courses[0].course_code;
+  tempArr[i++] = student.courses[0].section_1.theory_marks.total_marks;
+  tempArr[i++] = student.courses[0].section_1.theory_marks.passing_marks;
+  tempArr[i++] = student.courses[0].section_1.theory_marks.marks_obtain;
+  tempArr[i++] = student.courses[0].section_1.theory_marks.grade;
+  tempArr[i++] = student.courses[0].section_1.internal_marks.total_marks;
+  tempArr[i++] = student.courses[0].section_1.internal_marks.passing_marks;
+  tempArr[i++] = student.courses[0].section_1.internal_marks.marks_obtain;
+  tempArr[i++] = student.courses[0].section_1.internal_marks.grade;
+  tempArr[i++] = student.courses[0].section_1.total_marks;
+  tempArr[i++] = student.courses[0].section_1.C;
+  tempArr[i++] = student.courses[0].section_1.G;
+  tempArr[i++] = student.courses[0].section_1.GP;
+  tempArr[i++] = student.courses[0].section_1["C*GP"];
+  tempArr[i++] = student.courses[0].section_2.assignment_marks.total_marks;
+  tempArr[i++] = student.courses[0].section_2.assignment_marks.passing_marks;
+  tempArr[i++] = student.courses[0].section_2.assignment_marks.marks_obtain;
+  tempArr[i++] = student.courses[0].section_2.C;
+  tempArr[i++] = student.courses[0].section_2.G;
+  tempArr[i++] = student.courses[0].section_2.GP;
+  tempArr[i++] = student.courses[0].section_2["C*GP"];
+  {
+    /* Course 2 */
+  }
+  tempArr[i++] = student.courses[1].course_name;
+  tempArr[i++] = student.courses[1].course_code;
+  tempArr[i++] = student.courses[1].section_1.theory_marks.total_marks;
+  tempArr[i++] = student.courses[1].section_1.theory_marks.passing_marks;
+  tempArr[i++] = student.courses[1].section_1.theory_marks.marks_obtain;
+  tempArr[i++] = student.courses[1].section_1.theory_marks.grade;
+  tempArr[i++] = student.courses[1].section_1.internal_marks.total_marks;
+  tempArr[i++] = student.courses[1].section_1.internal_marks.passing_marks;
+  tempArr[i++] = student.courses[1].section_1.internal_marks.marks_obtain;
+  tempArr[i++] = student.courses[1].section_1.internal_marks.grade;
+  tempArr[i++] = student.courses[1].section_1.total_marks;
+  tempArr[i++] = student.courses[1].section_1.C;
+  tempArr[i++] = student.courses[1].section_1.G;
+  tempArr[i++] = student.courses[1].section_1.GP;
+  tempArr[i++] = student.courses[1].section_1["C*GP"];
+  tempArr[i++] = student.courses[1].section_2.assignment_marks.total_marks;
+  tempArr[i++] = student.courses[1].section_2.assignment_marks.passing_marks;
+  tempArr[i++] = student.courses[1].section_2.assignment_marks.marks_obtain;
+  tempArr[i++] = student.courses[1].section_2.assignment_marks.grade;
+  tempArr[i++] = student.courses[1].section_2.practical_marks.total_marks;
+  tempArr[i++] = student.courses[1].section_2.practical_marks.passing_marks;
+  tempArr[i++] = student.courses[1].section_2.practical_marks.marks_obtain;
+  tempArr[i++] = student.courses[1].section_2.practical_marks.grade;
+  tempArr[i++] = student.courses[1].section_2.total_marks;
+  tempArr[i++] = student.courses[1].section_2.C;
+  tempArr[i++] = student.courses[1].section_2.G;
+  tempArr[i++] = student.courses[1].section_2.GP;
+  tempArr[i++] = student.courses[1].section_2["C*GP"];
+  {
+    /* Course 3 */
+  }
+  tempArr[i++] = student.courses[2].course_name;
+  tempArr[i++] = student.courses[2].course_code;
+  tempArr[i++] = student.courses[2].section_1.theory_marks.total_marks;
+  tempArr[i++] = student.courses[2].section_1.theory_marks.passing_marks;
+  tempArr[i++] = student.courses[2].section_1.theory_marks.marks_obtain;
+  tempArr[i++] = student.courses[2].section_1.theory_marks.grade;
+  tempArr[i++] = student.courses[2].section_1.internal_marks.total_marks;
+  tempArr[i++] = student.courses[2].section_1.internal_marks.passing_marks;
+  tempArr[i++] = student.courses[2].section_1.internal_marks.marks_obtain;
+  tempArr[i++] = student.courses[2].section_1.internal_marks.grade;
+  tempArr[i++] = student.courses[2].section_1.total_marks;
+  tempArr[i++] = student.courses[2].section_1.C;
+  tempArr[i++] = student.courses[2].section_1.G;
+  tempArr[i++] = student.courses[2].section_1.GP;
+  tempArr[i++] = student.courses[2].section_1["C*GP"];
+  tempArr[i++] = student.courses[2].section_2.assignment_marks.total_marks;
+  tempArr[i++] = student.courses[2].section_2.assignment_marks.passing_marks;
+  tempArr[i++] = student.courses[2].section_2.assignment_marks.marks_obtain;
+  tempArr[i++] = student.courses[2].section_2.assignment_marks.grade;
+  tempArr[i++] = student.courses[2].section_2.practical_marks.total_marks;
+  tempArr[i++] = student.courses[2].section_2.practical_marks.passing_marks;
+  tempArr[i++] = student.courses[2].section_2.practical_marks.marks_obtain;
+  tempArr[i++] = student.courses[2].section_2.practical_marks.grade;
+  tempArr[i++] = student.courses[2].section_2.total_marks;
+  tempArr[i++] = student.courses[2].section_2.C;
+  tempArr[i++] = student.courses[2].section_2.G;
+  tempArr[i++] = student.courses[2].section_2.GP;
+  tempArr[i++] = student.courses[2].section_2["C*GP"];
+  {
+    /* Course 4 */
+  }
+  tempArr[i++] = student.courses[3].course_name;
+  tempArr[i++] = student.courses[3].course_code;
+  tempArr[i++] = student.courses[3].section_1.theory_marks.total_marks;
+  tempArr[i++] = student.courses[3].section_1.theory_marks.passing_marks;
+  tempArr[i++] = student.courses[3].section_1.theory_marks.marks_obtain;
+  tempArr[i++] = student.courses[3].section_1.theory_marks.grade;
+  tempArr[i++] = student.courses[3].section_1.internal_marks.total_marks;
+  tempArr[i++] = student.courses[3].section_1.internal_marks.passing_marks;
+  tempArr[i++] = student.courses[3].section_1.internal_marks.marks_obtain;
+  tempArr[i++] = student.courses[3].section_1.internal_marks.grade;
+  tempArr[i++] = student.courses[3].section_1.total_marks;
+  tempArr[i++] = student.courses[3].section_1.C;
+  tempArr[i++] = student.courses[3].section_1.G;
+  tempArr[i++] = student.courses[3].section_1.GP;
+  tempArr[i++] = student.courses[3].section_1["C*GP"];
+  tempArr[i++] = student.courses[3].section_2.assignment_marks.total_marks;
+  tempArr[i++] = student.courses[3].section_2.assignment_marks.passing_marks;
+  tempArr[i++] = student.courses[3].section_2.assignment_marks.marks_obtain;
+  tempArr[i++] = student.courses[3].section_2.C;
+  tempArr[i++] = student.courses[3].section_2.G;
+  tempArr[i++] = student.courses[3].section_2.GP;
+  tempArr[i++] = student.courses[3].section_2["C*GP"];
+  {
+    /* Course 5 */
+  }
+  tempArr[i++] = student.courses[4].course_name;
+  tempArr[i++] = student.courses[4].course_code;
+  tempArr[i++] = student.courses[4].section_1.term_work_marks.total_marks;
+  tempArr[i++] = student.courses[4].section_1.term_work_marks.passing_marks;
+  tempArr[i++] = student.courses[4].section_1.term_work_marks.marks_obtain;
+  tempArr[i++] = student.courses[4].section_1.term_work_marks.grade;
+  tempArr[i++] = student.courses[4].section_1.internal_marks.total_marks;
+  tempArr[i++] = student.courses[4].section_1.internal_marks.passing_marks;
+  tempArr[i++] = student.courses[4].section_1.internal_marks.marks_obtain;
+  tempArr[i++] = student.courses[4].section_1.internal_marks.grade;
+  tempArr[i++] = student.courses[4].section_1.total_marks;
+  tempArr[i++] = student.courses[4].section_1.C;
+  tempArr[i++] = student.courses[4].section_1.G;
+  tempArr[i++] = student.courses[4].section_1.GP;
+  tempArr[i++] = student.courses[4].section_1["C*GP"];
+  {
+    /* Course 6 */
+  }
+  tempArr[i++] = student.courses[5].course_name;
+  tempArr[i++] = student.courses[5].course_code;
+  tempArr[i++] = student.courses[5].section_1.term_work_marks.total_marks;
+  tempArr[i++] = student.courses[5].section_1.term_work_marks.passing_marks;
+  tempArr[i++] = student.courses[5].section_1.term_work_marks.marks_obtain;
+  tempArr[i++] = student.courses[5].section_1.term_work_marks.grade;
+  tempArr[i++] = student.courses[5].section_1.internal_marks.total_marks;
+  tempArr[i++] = student.courses[5].section_1.internal_marks.passing_marks;
+  tempArr[i++] = student.courses[5].section_1.internal_marks.marks_obtain;
+  tempArr[i++] = student.courses[5].section_1.internal_marks.grade;
+  tempArr[i++] = student.courses[5].section_1.total_marks;
+  tempArr[i++] = student.courses[5].section_1.C;
+  tempArr[i++] = student.courses[5].section_1.G;
+  tempArr[i++] = student.courses[5].section_1.GP;
+  tempArr[i++] = student.courses[5].section_1["C*GP"];
+  {
+    /* Course 7 */
+  }
+  tempArr[i++] = student.courses[6].course_name;
+  tempArr[i++] = student.courses[6].course_code;
+  tempArr[i++] = student.courses[6].section_1.total_marks;
+  tempArr[i++] = student.courses[6].section_1.passing_marks;
+  tempArr[i++] = student.courses[6].section_1.marks_obtain;
+  tempArr[i++] = student.courses[6].section_1.grade;
+  tempArr[i++] = student.courses[6].section_1.total_marks_obtain;
+  tempArr[i++] = student.courses[6].section_1.C;
+  tempArr[i++] = student.courses[6].section_1.G;
+  tempArr[i++] = student.courses[6].section_1.GP;
+  tempArr[i++] = student.courses[6].section_1["C*GP"];
+
+  return tempArr;
+}
+
+function convert2DArrToExcel(data) {
+  // Convert the 2D array to a worksheet
+  const worksheet = xlsx.utils.aoa_to_sheet(data);
+
+  // Create a new workbook and append the worksheet
+  const workbook = xlsx.utils.book_new();
+  xlsx.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+  // Write the workbook to a file
+  const filePath = "output.xlsx";
+  xlsx.writeFile(workbook, filePath);
+
+  console.log(`Excel file generated: ${filePath}`);
+}
+
+function displayArr() {
+  console.log("Sem1_2DArr:" + Sem1_2DArr);
+}
+
+readPDFText(pdfPath);
