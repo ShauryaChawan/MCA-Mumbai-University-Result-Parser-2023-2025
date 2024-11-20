@@ -1,13 +1,31 @@
 const fs = require("fs");
 const pdf = require("pdf-parse");
 
+// let dataBuffer = fs.readFileSync(
+//   "D:\\Projects\\PDF to Excel\\pdfs\\sem-1\\1T00161 - Sem 1-515-520.pdf"
+// );
+
 let dataBuffer = fs.readFileSync(
   "D:\\Projects\\PDF to Excel\\pdfs\\sem-1\\passed-students\\1T00161 - Sem 1-518.pdf"
 );
 
 pdf(dataBuffer)
   .then(function (data) {
-    extractedData = data.text.split(
+    // // number of pages
+    // console.log(data.numpages);
+    // // number of rendered pages
+    // console.log(data.numrender);
+    // // PDF info
+    // console.log(data.info);
+    // // PDF metadata
+    // console.log(data.metadata);
+    // // PDF.js version
+    // // check https://mozilla.github.io/pdf.js/getting_started/
+    // console.log(data.version);
+    // // PDF text
+    // console.log(data.text);
+
+    let extractedData = data.text.split(
       "----------------------------------------------------------------------------------------------------------------------------------"
     );
 
@@ -17,252 +35,6 @@ pdf(dataBuffer)
   .catch(function (error) {
     console.log(error + "Couldn't read the pdf !!");
   });
-
-let extractedCoursesMaxLength = {
-  // <subject code>: [<max length>, <delimiter>]
-  MCA11: [58, "|"],
-  MCA12: [62, "\n"],
-  MCA13: [58, "|"],
-  MCA14: [62, "\n"],
-  MCAL11: [31, "|"],
-  MCAL14: [26, "|"],
-  MCAP11: [34, "\n"],
-};
-
-let students_data_sem_1_layout = [
-  {
-    seat_no: "",
-    name: "",
-    prn: "",
-    coll_code: "",
-    coll_name: "",
-    status: "",
-    totals: {
-      total_marks: "850",
-      total_marks_obtain: "",
-      total_credits: "",
-      total_cgp: "",
-      gpi: "",
-    },
-    courses: [
-      {
-        course_name: "MATHEMATICAL FOUNDATION FOR COMPUTER SCI",
-        course_code: "MCA11",
-        section_1: {
-          theory_marks: {
-            total_marks: "80",
-            passing_marks: "36",
-            marks_obtain: "",
-            grade: "",
-          },
-          internal_marks: {
-            total_marks: "20",
-            passing_marks: "9",
-            marks_obtain: "",
-            grade: "",
-          },
-          total_marks_obtain: "",
-          C: "",
-          G: "",
-          GP: "",
-          "C*GP": "",
-        },
-        section_2: {
-          assignment_marks: {
-            total_marks: "25",
-            passing_marks: "11",
-            marks_obtain: "",
-          },
-          C: "",
-          G: "",
-          GP: "",
-          "C*GP": "",
-        },
-      },
-      {
-        course_name: "ADVANCED JAVA / LAB",
-        course_code: "MCA12",
-
-        section_1: {
-          theory_marks: {
-            total_marks: "80",
-            passing_marks: "36",
-            marks_obtain: "",
-            grade: "",
-          },
-          internal_marks: {
-            total_marks: "20",
-            passing_marks: "9",
-            marks_obtain: "",
-            grade: "",
-          },
-          total_marks_obtain: "",
-          C: "",
-          G: "",
-          GP: "",
-          "C*GP": "",
-        },
-        section_2: {
-          assignment_marks: {
-            total_marks: "25",
-            passing_marks: "11",
-            marks_obtain: "",
-            grade: "",
-          },
-          practical_marks: {
-            total_marks: "50",
-            passing_marks: "23",
-            marks_obtain: "",
-            grade: "",
-          },
-          total_marks_obtain: "",
-          C: "",
-          G: "",
-          GP: "",
-          "C*GP": "",
-        },
-      },
-      {
-        course_name: "ADVANCED DATABASE MANAGEMENT SYSTEM / LAB",
-        course_code: "MCA13",
-
-        section_1: {
-          theory_marks: {
-            total_marks: "80",
-            passing_marks: "36",
-            marks_obtain: "",
-            grade: "",
-          },
-          internal_marks: {
-            total_marks: "20",
-            passing_marks: "11",
-            marks_obtain: "",
-            grade: "",
-          },
-          total_marks_obtain: "",
-          C: "",
-          G: "",
-          GP: "",
-          "C*GP": "",
-        },
-        section_2: {
-          assignment_marks: {
-            total_marks: "25",
-            passing_marks: "11",
-            marks_obtain: "",
-            grade: "",
-          },
-          practical_marks: {
-            total_marks: "50",
-            passing_marks: "23",
-            marks_obtain: "",
-            grade: "",
-          },
-          total_marks_obtain: "",
-          C: "",
-          G: "",
-          GP: "",
-          "C*GP": "",
-        },
-      },
-      {
-        course_name: "SOFTWARE PROJECT MANAGEMENT",
-        course_code: "MCA14",
-        section_1: {
-          theory_marks: {
-            total_marks: "80",
-            passing_marks: "36",
-            marks_obtain: "",
-            grade: "",
-          },
-          internal_marks: {
-            total_marks: "20",
-            passing_marks: "9",
-            marks_obtain: "",
-            grade: "",
-          },
-          total_marks_obtain: "",
-          C: "",
-          G: "",
-          GP: "",
-          "C*GP": "",
-        },
-        section_2: {
-          assignment_marks: {
-            total_marks: "25",
-            passing_marks: "11",
-            marks_obtain: "",
-          },
-          C: "",
-          G: "",
-          GP: "",
-          "C*GP": "",
-        },
-      },
-      {
-        course_name: "DATA STRUCTURE LAB USING C AND/ C++",
-        course_code: "MCAL11",
-        section_1: {
-          term_work_marks: {
-            total_marks: "50",
-            passing_marks: "23",
-            marks_obtain: "",
-            grade: "",
-          },
-          internal_marks: {
-            total_marks: "50",
-            passing_marks: "23",
-            marks_obtain: "",
-            grade: "",
-          },
-          total_marks_obtain: "",
-          C: "",
-          G: "",
-          GP: "",
-          "C*GP": "",
-        },
-      },
-      {
-        course_name: "WEB TECHNOLOGIES",
-        course_code: "MCAL14",
-        section_1: {
-          term_work_marks: {
-            total_marks: "50",
-            passing_marks: "23",
-            marks_obtain: "",
-            grade: "",
-          },
-          internal_marks: {
-            total_marks: "50",
-            passing_marks: "23",
-            marks_obtain: "",
-            grade: "",
-          },
-          total_marks_obtain: "",
-          C: "",
-          G: "",
-          GP: "",
-          "C*GP": "",
-        },
-      },
-      {
-        course_name: "MINI PROJECT-1A",
-        course_code: "MCAP11",
-        section_1: {
-          total_marks: "50",
-          passing_marks: "23",
-          marks_obtain: "",
-          grade: "",
-          total_marks_obtain: "",
-          C: "",
-          G: "",
-          GP: "",
-          "C*GP": "",
-        },
-      },
-    ],
-  },
-];
 
 let extractedJSONData = [];
 
@@ -286,7 +58,7 @@ function processAllStudentsData(extractedData) {
   } else {
     console.log("Array is empty !!");
   }
-  // displayExtractedJSONData();
+  displayExtractedJSONData();
 }
 
 const displayExtractedJSONData = () => {
@@ -294,13 +66,8 @@ const displayExtractedJSONData = () => {
 };
 
 function parseCompleteData(rawData) {
-  // console.log(rawData);
-
   rawData = rawData.split("\n");
 
-  // console.log(rawData);
-
-  // remove unwanted " ";
   function removeIndicesUsingSplice(arr, indicesToRemove) {
     // Sort the indices in descending order to avoid shifting issues
     indicesToRemove.sort((a, b) => b - a);
@@ -319,17 +86,6 @@ function parseCompleteData(rawData) {
 
   rawData = removeIndicesUsingSplice(rawData, indicesToRemove);
 
-  // console.log(rawData.length); = 5
-  // console.log(rawData);
-
-  // [
-  //   "  9303351 /BORHADE SIDDHI SANJAY SUVARNA                         2020016400304377    COLL 456:SIES NERUL NAVI MUMBAI ",
-  //   " 44 (D )17 (O ) 61 3  C   7 21|20               1  O  10 10|64 (O )19 (O ) 83 3  O  10 30|23 (O) 42 (O) 65   1  O  10 10       P ",
-  //   " 66 (O )17 (O ) 83 3  O  10 30|22 (O)32 (C)  54 1  B   8  8|61 (A )16 (O ) 77 3  A   9 27|16                 1  C   7  7 ",
-  //   " 48 (O )25 (E ) 73 2  B   8 16|38 (A)39 (A)  77 2  A   9 18 |33 (C)        33 1  C   7  7 ",
-  //   "                                                                      Total Marks obtained 642/850           21 184  8.76 ",
-  // ];
-
   let studentInfo = extractStudentDetails(rawData[0]);
   let studentStatus = extractStudentStatus(rawData[1]);
   let studentTotal = extractStudentTotals(rawData[rawData.length - 1]);
@@ -338,10 +94,13 @@ function parseCompleteData(rawData) {
     rawData[2],
     rawData[3],
   ]);
-  // console.log(studentInfo);
-  // console.log(studentStatus);
-  // console.log(studentTotal);
-  return { ...studentInfo, status: studentStatus, totals: studentTotal };
+
+  return {
+    ...studentInfo,
+    status: studentStatus,
+    totals: studentTotal,
+    courses,
+  };
 }
 
 function extractStudentDetails(rawLine) {
@@ -450,11 +209,19 @@ function extractStudentsMarksForEachCourse(rawRows) {
   let row3 = rawRows[2].trim();
 
   const processRow1_result = processRow1(row1);
-  console.log(processRow1_result);
+  // console.log(processRow1_result);
   const processRow2_result = processRow2(row2);
-  console.log(processRow2_result);
+  // console.log(processRow2_result);
   const processRow3_result = processRow3(row3);
-  console.log(processRow3_result);
+  // console.log(processRow3_result);
+
+  const course_1_2 = mappedArrayToJSONRow1(processRow1_result);
+  // console.log(course_1_2);
+  const course_3_4 = mappedArrayToJSONRow2(processRow2_result);
+  const course_5_6_7 = mappedArrayToJSONRow3(processRow3_result);
+
+  // console.log([...course_1_2, ...course_3_4, ...course_5_6_7]);
+  return [...course_1_2, ...course_3_4, ...course_5_6_7];
 }
 
 function processRow1(rawInput) {
@@ -495,7 +262,7 @@ function processRow2(rawInput) {
   const result = sanitizedInput.match(regex);
 
   // removing "RCC" or "ABS"
-  if(result.length === 38){
+  if (result.length === 38) {
     result.pop();
     result.pop();
     result.pop();
@@ -513,16 +280,295 @@ function processRow3(rawInput) {
 
   // Iterate through the matches using the regex
   while ((match = regex.exec(rawInput)) !== null) {
-    if (match[1] && match[2]) { // Match patterns like "48 (O)" or "47E(O)"
+    if (match[1] && match[2]) {
+      // Match patterns like "48 (O)" or "47E(O)"
       result.push(match[1], match[2]);
-    } else if (match[3]) { // Match standalone numbers or letters
+    } else if (match[3]) {
+      // Match standalone numbers or letters
       result.push(match[3]);
-    } else if (match[4]) { // Match "--"
+    } else if (match[4]) {
+      // Match "--"
       result.push(match[4]);
-    } else if (match[0] === "|") { // Match "|"
+    } else if (match[0] === "|") {
+      // Match "|"
       result.push("|");
     }
   }
 
   return result;
+}
+
+function mappedArrayToJSONRow1(data) {
+  // General template for the courses
+  const template = [
+    {
+      course_name: "MATHEMATICAL FOUNDATION FOR COMPUTER SCI",
+      course_code: "MCA11",
+      section_1: {
+        theory_marks: {
+          total_marks: "80",
+          passing_marks: "36",
+          marks_obtain: "",
+          grade: "",
+        },
+        internal_marks: {
+          total_marks: "20",
+          passing_marks: "9",
+          marks_obtain: "",
+          grade: "",
+        },
+        total_marks: "",
+        C: "",
+        G: "",
+        GP: "",
+        "C*GP": "",
+      },
+      section_2: {
+        assignment_marks: {
+          total_marks: "25",
+          passing_marks: "11",
+          marks_obtain: "",
+        },
+        C: "",
+        G: "",
+        GP: "",
+        "C*GP": "",
+      },
+    },
+    {
+      course_name: "ADVANCED JAVA / LAB",
+      course_code: "MCA12",
+      section_1: {
+        theory_marks: {
+          total_marks: "80",
+          passing_marks: "36",
+          marks_obtain: "",
+          grade: "",
+        },
+        internal_marks: {
+          total_marks: "20",
+          passing_marks: "9",
+          marks_obtain: "",
+          grade: "",
+        },
+        total_marks: "",
+        C: "",
+        G: "",
+        GP: "",
+        "C*GP": "",
+      },
+      section_2: {
+        assignment_marks: {
+          total_marks: "25",
+          passing_marks: "11",
+          marks_obtain: "",
+          grade: "",
+        },
+        practical_marks: {
+          total_marks: "50",
+          passing_marks: "23",
+          marks_obtain: "",
+          grade: "",
+        },
+        total_marks: "",
+        C: "",
+        G: "",
+        GP: "",
+        "C*GP": "",
+      },
+    },
+  ];
+
+  // Map the data to the template
+  let index = 0;
+
+  // Populate data for the first course
+  template[0].section_1.theory_marks.marks_obtain = data[index++];
+  template[0].section_1.theory_marks.grade = data[index++];
+  template[0].section_1.internal_marks.marks_obtain = data[index++];
+  template[0].section_1.internal_marks.grade = data[index++];
+  template[0].section_1.total_marks = data[index++];
+  template[0].section_1.C = data[index++];
+  template[0].section_1.G = data[index++];
+  template[0].section_1.GP = data[index++];
+  template[0].section_1["C*GP"] = data[index++];
+  index++; // Skip the "|"
+
+  template[0].section_2.assignment_marks.marks_obtain = data[index++];
+  template[0].section_2.C = data[index++];
+  template[0].section_2.G = data[index++];
+  template[0].section_2.GP = data[index++];
+  template[0].section_2["C*GP"] = data[index++];
+  index++; // Skip the "|"
+
+  // Populate data for the second course
+  template[1].section_1.theory_marks.marks_obtain = data[index++];
+  template[1].section_1.theory_marks.grade = data[index++];
+  template[1].section_1.internal_marks.marks_obtain = data[index++];
+  template[1].section_1.internal_marks.grade = data[index++];
+  template[1].section_1.total_marks = data[index++];
+  template[1].section_1.C = data[index++];
+  template[1].section_1.G = data[index++];
+  template[1].section_1.GP = data[index++];
+  template[1].section_1["C*GP"] = data[index++];
+  index++; // Skip the "|"
+
+  template[1].section_2.assignment_marks.marks_obtain = data[index++];
+  template[1].section_2.assignment_marks.grade = data[index++];
+  template[1].section_2.practical_marks.marks_obtain = data[index++];
+  template[1].section_2.practical_marks.grade = data[index++];
+  template[1].section_2.total_marks = data[index++];
+  template[1].section_2.C = data[index++];
+  template[1].section_2.G = data[index++];
+  template[1].section_2.GP = data[index++];
+  template[1].section_2["C*GP"] = data[index++];
+
+  return template;
+}
+
+function mappedArrayToJSONRow2(data) {
+  return [
+    {
+      course_name: "ADVANCED DATABASE MANAGEMENT SYSTEM / LAB",
+      course_code: "MCA13",
+      section_1: {
+        theory_marks: {
+          total_marks: "80",
+          passing_marks: "36",
+          marks_obtain: data[0],
+          grade: data[1],
+        },
+        internal_marks: {
+          total_marks: "20",
+          passing_marks: "11",
+          marks_obtain: data[2],
+          grade: data[3],
+        },
+        total_marks: data[4],
+        C: data[5],
+        G: data[6],
+        GP: data[7],
+        "C*GP": data[8],
+      },
+      section_2: {
+        assignment_marks: {
+          total_marks: "25",
+          passing_marks: "11",
+          marks_obtain: data[10],
+          grade: data[11],
+        },
+        practical_marks: {
+          total_marks: "50",
+          passing_marks: "23",
+          marks_obtain: data[12],
+          grade: data[13],
+        },
+        total_marks: data[14],
+        C: data[15],
+        G: data[16],
+        GP: data[17],
+        "C*GP": data[18],
+      },
+    },
+    {
+      course_name: "SOFTWARE PROJECT MANAGEMENT",
+      course_code: "MCA14",
+      section_1: {
+        theory_marks: {
+          total_marks: "80",
+          passing_marks: "36",
+          marks_obtain: data[20],
+          grade: data[21],
+        },
+        internal_marks: {
+          total_marks: "20",
+          passing_marks: "9",
+          marks_obtain: data[22],
+          grade: data[23],
+        },
+        total_marks: data[24],
+        C: data[25],
+        G: data[26],
+        GP: data[27],
+        "C*GP": data[28],
+      },
+      section_2: {
+        assignment_marks: {
+          total_marks: "25",
+          passing_marks: "11",
+          marks_obtain: data[30],
+        },
+        C: data[31],
+        G: data[32],
+        GP: data[33],
+        "C*GP": data[34],
+      },
+    },
+  ];
+}
+
+function mappedArrayToJSONRow3(data) {
+  return [
+    {
+      course_name: "DATA STRUCTURE LAB USING C AND/ C++",
+      course_code: "MCAL11",
+      section_1: {
+        term_work_marks: {
+          total_marks: "50",
+          passing_marks: "23",
+          marks_obtain: data[0],
+          grade: data[1],
+        },
+        internal_marks: {
+          total_marks: "50",
+          passing_marks: "23",
+          marks_obtain: data[2],
+          grade: data[3],
+        },
+        total_marks: data[4],
+        C: data[5],
+        G: data[6],
+        GP: data[7],
+        "C*GP": data[8],
+      },
+    },
+    {
+      course_name: "WEB TECHNOLOGIES",
+      course_code: "MCAL14",
+      section_1: {
+        term_work_marks: {
+          total_marks: "50",
+          passing_marks: "23",
+          marks_obtain: data[10],
+          grade: data[11],
+        },
+        internal_marks: {
+          total_marks: "50",
+          passing_marks: "23",
+          marks_obtain: data[12],
+          grade: data[13],
+        },
+        total_marks: data[14],
+        C: data[15],
+        G: data[16],
+        GP: data[17],
+        "C*GP": data[18],
+      },
+    },
+    {
+      course_name: "MINI PROJECT-1A",
+      course_code: "MCAP11",
+      section_1: {
+        total_marks: "50",
+        passing_marks: "23",
+        marks_obtain: data[20],
+        grade: data[21],
+        total_marks_obtain: data[22],
+        C: data[23],
+        G: data[24],
+        GP: data[25],
+        "C*GP": data[26],
+      },
+    },
+  ];
 }
