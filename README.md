@@ -1,5 +1,16 @@
 # MCA-Mumbai-University-Result-Parser-(Batch: 2023-2025)
 
+## PDFs Variation
+
+1. Sem 1: Done ✅
+2. Sem 1 - KT: Done ✅
+3. Sem 2
+4. Sem 2 - Kt
+5. Sem 3
+6. Sem 3 - Kt
+7. Sem 4
+8. Sem 4 - Kt
+
 ## Approach
 
 1. Read the entire pdf page wise.
