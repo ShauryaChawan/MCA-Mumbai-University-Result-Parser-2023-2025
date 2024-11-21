@@ -1,0 +1,25 @@
+consider the following object
+```
+  let coursesList = {
+    c1: ["MATHEMATICAL FOUNDATION FOR COMP. SC.2", "MCA21"],
+    c2: ["ARTIFICIAL INTELIGENCE AND MACHINE LEARN/MCAL21:LAB", "MCA22"],
+    c3: ["INFORMATION SECURITY", "MCA23"],
+    c6: ["SOFT SKILL DEVELOPMENT LAB", "MCAL22"],
+    c7: ["S.B.L.C. AWT LAB", "MCAL24"],
+    c8: ["S.B.L.C. USER INTERFACE LAB", "MCAL25"],
+    c9: ["S.B.L.C. NETWORKING LIN.LAB", "MCAL26"],
+    c10: ["MINI PROJECT I-B", "MCAP21"],
+  };
+```
+
+write a regex expression function in js, that take te following raw strings as input:
+```
+(ELECTIVE 1:MCAE242:INTERNET OF THINGS)/MCALE232:LAB      (ELECTIVE 2 :MCAE254:DIGITAL MARKETING AND BUSINESS ANALYTICS)
+``` 
+
+and extracts elective subjects and adds it to the "coursesList"
+```
+// extracted data:
+coursesList.e1 = ["INTERNET OF THINGS", "MCAE242"]
+coursesList.e2 = ["DIGITAL MARKETING AND BUSINESS ANALYTICS", "MCAE254"]
+```
